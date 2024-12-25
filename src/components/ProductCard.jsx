@@ -1,5 +1,7 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import defaultImage from '../assets/img/product.jpg';
+import { increment } from '../redux/features/addToCart/addToCartSlice';
+import { useDispatch } from 'react-redux';
 
 const ProductCard = ({ product }) => {
     const { brand, price, title, discountPercentage, category, thumbnail } = product;
@@ -12,23 +14,24 @@ const ProductCard = ({ product }) => {
         finalPrice = (price - discountAmount).toFixed(2);
     }
 
+    const dispatch = useDispatch();
     return (
         <div className="rounded-md p-1 relative group hover:shadow-xl hover:bg-white w-full max-w-[300px] bg-slate-50">
             <div className='relative w-full'>
-            <Icon
-            icon="solar:heart-linear"
-            width="24"
-            height="24"
-            className="absolute top-5 right-5 z-10 text-green-500 transition-all hover:opacity-0"
-        />
+                <Icon
+                    icon="solar:heart-linear"
+                    width="24"
+                    height="24"
+                    className="absolute top-5 right-5 z-10 text-green-500 transition-all hover:opacity-0 cursor-pointer"
+                />
 
-        {/* Hover Icon */}
-        <Icon
-            icon="solar:heart-bold"
-            width="24"
-            height="24"
-            className="absolute top-5 right-5 z-10 text-red-500 transition-all opacity-0 hover:opacity-100"
-        />
+                {/* Hover Icon */}
+                <Icon
+                    icon="solar:heart-bold"
+                    width="24"
+                    height="24"
+                    className="absolute top-5 right-5 z-10 text-red-500 transition-all opacity-0 hover:opacity-100 cursor-pointer"
+                />
                 {
                     discountPercentage !== null && discountPercentage !== undefined && discountPercentage > 0 ? (
                         <>
@@ -50,7 +53,7 @@ const ProductCard = ({ product }) => {
             <div className='w-full h-[200px]  rounded-md overflow-hidden relative'>
                 <img src={thumbnail || defaultImage} alt="Product Image" className='h-full w-full object-cover' />
                 <div className='absolute bottom-5 left-0 w-full z-10 px-5 grid gap-2 translate-x-full group-hover:-translate-x-0 transition-transform duration-300'>
-                    <button className='flex justify-center py-1 w-full bg-opacity-30 bg-white text-green-500 rounded-md  border border-green-500 border-opacity-30 hover:bg-[#03A629] hover:text-white transition-all'>
+                    <button className='flex justify-center py-1 w-full bg-opacity-30 bg-white text-green-500 rounded-md  border border-green-500 border-opacity-30 hover:bg-[#03A629] hover:text-white transition-all' onClick={() => dispatch( (increment))}>
                         <Icon icon="ic:outline-shopping-cart" width="24" height="24" />Add To Cart</button>
                     <button className='flex justify-center py-1 w-full bg-opacity-30 bg-white text-green-500 rounded-md  border border-green-500 border-opacity-30 hover:bg-[#03A629] hover:text-white transition-all'>
                         <Icon icon="ic:outline-remove-red-eye" width="24" height="24" />Quick View</button>
@@ -58,7 +61,7 @@ const ProductCard = ({ product }) => {
             </div>
             <div className='px-5 py-3'>
                 <h6 className='text-[#5A6573] font-sm font-normal capitalize'>{brand ?? category ?? ""}</h6>
-                <h4 className='text-[#1A2B3D] font-bold text-lg mb-2'>{title ?? ""}</h4>
+                <h4 className='text-[#1A2B3D] font-bold text-lg mb-2'>{title.slice(0, 30) ?? ""}</h4>
 
                 {
                     discountPercentage !== null && discountPercentage !== undefined && discountPercentage > 0 ? (
