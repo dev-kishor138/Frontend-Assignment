@@ -1,6 +1,8 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
 import defaultImage from '../assets/img/product.jpg';
 import useCart from '../hooks/useCart';
+import LoveReact from './LoveReact';
+import Badge from './Badge';
 
 const ProductCard = ({ product }) => {
     const { brand, price, title, discountPercentage, category, thumbnail } = product;
@@ -26,32 +28,11 @@ const ProductCard = ({ product }) => {
     return (
         <div className="rounded-md p-1 relative group hover:shadow-xl hover:bg-white w-full max-w-[300px] bg-slate-50">
             <div className='relative w-full'>
-                <Icon
-                    icon="solar:heart-linear"
-                    width="24"
-                    height="24"
-                    className="absolute top-5 right-5 z-10 text-green-500 transition-all hover:opacity-0 cursor-pointer"
-                />
-
-                {/* Hover Icon */}
-                <Icon
-                    icon="solar:heart-bold"
-                    width="24"
-                    height="24"
-                    className="absolute top-5 right-5 z-10 text-red-500 transition-all opacity-0 hover:opacity-100 cursor-pointer"
-                />
+                <LoveReact />
                 {
                     discountPercentage !== null && discountPercentage !== undefined && discountPercentage > 0 ? (
                         <>
-                            <div className='absolute top-[35px] -left-[4px] w-4 h-4 bg-gradient-to-b from-[#FFA03B] to-[#F27D00] rotate-[130deg] -z-10'>
-                            </div>
-                            <div className='absolute top-5 -left-2 bg-gradient-to-b from-[#FFA03B] to-[#F27D00] text-md h-6 w-[80px] px-3 text-white rounded-ss-lg z-20 text-center'>
-                                <p>-{" "}${discountAmount}</p>
-                            </div>
-                            <div
-                                className="absolute top-5 left-[60px] h-6 w-0 border-l-[12px] border-l-transparent border-r-[12px] border-r-transparent border-b-[24px] border-b-[#F27D00] before:absolute before:top-0 before:-left-3 before:h-6 before:w-0 before:border-l-[12px] before:border-l-transparent before:border-r-[12px] before:border-r-transparent before:border-b-[24px] before:border-b-[#F7B166] before:rotate-180 rounded-sm before:rounded-sm z-10"
-                            >
-                            </div>
+                            <Badge discountAmount={discountAmount} />
                         </>
                     ) : null
                 }
