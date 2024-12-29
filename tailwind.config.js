@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        murecho: ['Murecho', 'sans-serif'], // Add Murecho font
+      },
+    },
   },
   plugins: [],
 }
